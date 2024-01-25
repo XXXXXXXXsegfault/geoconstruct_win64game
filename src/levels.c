@@ -385,7 +385,7 @@ int level000c_check(void)
 		return 0;
 	}
 	c=cos_angle_points(C,D,C,E);
-	if(!IS_ZERO(c*c-1.0))
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
 	{
 		return 0;
 	}
@@ -540,51 +540,6 @@ int level0010_check(void)
 	}
 	return 1;
 }
-void level0011_init(void)
-{
-	add_point(215.536,250.620,0,'A');
-	add_point(285.295,250.622,0,'B');
-	add_point(320.424,410.201,0,'C');
-	add_point(380.631,410.201,0,'D');
-	add_point(430.741,410.201,0,'E');
-}
-int level0011_check(void)
-{
-	struct point *A,*B,*C,*D,*E,*M,*N;
-	double c,c1,c2,d1,d2,d3;
-	A=point_by_label('A');
-	B=point_by_label('B');
-	C=point_by_label('C');
-	D=point_by_label('D');
-	E=point_by_label('E');
-	M=point_by_label('M');
-	N=point_by_label('N');
-	if(A==NULL||B==NULL||C==NULL||D==NULL||E==NULL||M==NULL||N==NULL)
-	{
-		return 0;
-	}
-	c1=cos_angle_points(A,M,A,B);
-	c2=cos_angle_points(B,N,B,A);
-	c=c1*c2-sqrt((1.0-c1*c1)*(1.0-c2*c2))+sqrt(3.0)/2.0;
-	if(!IS_ZERO(c))
-	{
-		return 0;
-	}
-	d1=distance_points(A,M);
-	d2=distance_points(B,N);
-	d3=distance_points(C,D);
-	if(!IS_ZERO(d1-d2)||!IS_ZERO(d1-d3))
-	{
-		return 0;
-	}
-	d1=distance_points(M,N);
-	d2=distance_points(D,E);
-	if(!IS_ZERO(d1-d2))
-	{
-		return 0;
-	}
-	return 1;
-}
 void level0012_init(void)
 {
 	add_point(180.301,250.520,0,'A');
@@ -614,12 +569,12 @@ int level0012_check(void)
 		return 0;
 	}
 	c=cos_angle_points(A,B,A,N);
-	if(!IS_ZERO(c*c-1.0))
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
 	{
 		return 0;
 	}
 	c=cos_angle_points(A,C,A,M);
-	if(!IS_ZERO(c*c-1.0))
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
 	{
 		return 0;
 	}
@@ -656,17 +611,17 @@ int level0013_check(void)
 		return 0;
 	}
 	c=cos_angle_points(A,B,A,N);
-	if(!IS_ZERO(c*c-1.0))
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
 	{
 		return 0;
 	}
 	c=cos_angle_points(A,B,A,P);
-	if(!IS_ZERO(c*c-1.0))
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
 	{
 		return 0;
 	}
 	c=cos_angle_points(A,C,A,M);
-	if(!IS_ZERO(c*c-1.0))
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
 	{
 		return 0;
 	}
@@ -706,7 +661,7 @@ int level0014_check(void)
 		return 0;
 	}
 	c=cos_angle_points(A,B,A,P);
-	if(!IS_ZERO(c*c-1.0))
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
 	{
 		return 0;
 	}
@@ -714,6 +669,52 @@ int level0014_check(void)
 	d2=distance_points(C,P);
 	d3=distance_points(D,P);
 	if(!IS_ZERO(d2+d3-d1))
+	{
+		return 0;
+	}
+	return 1;
+}
+void level0015_init(void)
+{
+	add_point(249.510,183.492,0,'A');
+	add_point(163.673,250.305,0,'B');
+	add_point(341.593,204.325,0,'C');
+	add_point(341.593,323.438,0,'D');
+	add_line(163.673,250.305,341.593,204.325,0);
+	add_line(163.673,250.305,341.593,323.438,0);
+}
+int level0015_check(void)
+{
+	struct point *A,*B,*C,*D,*M,*N;
+	double c,d1,d2;
+	A=point_by_label('A');
+	B=point_by_label('B');
+	C=point_by_label('C');
+	D=point_by_label('D');
+	M=point_by_label('M');
+	N=point_by_label('N');
+	if(A==NULL||B==NULL||C==NULL||D==NULL||M==NULL||N==NULL)
+	{
+		return 0;
+	}
+	c=cos_angle_points(B,C,B,M);
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
+	{
+		return 0;
+	}
+	c=cos_angle_points(B,D,B,N);
+	if(!IS_ZERO(c-1.0)&&!IS_ZERO(c+1.0))
+	{
+		return 0;
+	}
+	d1=distance_points(A,M);
+	d2=distance_points(A,N);
+	if(!IS_ZERO(d1-d2))
+	{
+		return 0;
+	}
+	c=cos_angle_points(A,M,A,N);
+	if(!IS_ZERO(c))
 	{
 		return 0;
 	}
@@ -737,7 +738,7 @@ void levels_init(void)
 	level_add(level000e_init,level000e_check,"Find a point D such\nthat angle BAD = angle\nCAD and angle ABD =\nangle ADC.");
 	level_add(level000f_init,level000f_check,"Find a point E on the\nline AD such that angle\nABE = angle AEC.");
 	level_add(level0010_init,level0010_check,"Find points M, N such\nthat AM = BN = CD, MN =\nDE, and angle BAM +\nangle ABN = 120 degrees.");
-	level_add(level0011_init,level0011_check,"Find points M, N such\nthat AM = BN = CD, MN =\nDE, and angle BAM +\nangle ABN = 150 degrees.");
+	level_add(level0015_init,level0015_check,"Find a point M on the\nline BC and a point N\non the line BD such that\nAM = AN and AM, AN are\nperpendicular.");
 	level_add(level0012_init,level0012_check,"Find a point M on the\nline AC and a point N\non the line AB such that\nMN, AB are perpendicular\nand MD = MN.");
 	level_add(level0013_init,level0013_check,"Find a point M on the\nline AC and points N,\nP on the line AB such\nthat MD = MN = MP = NP.");
 	level_add(level0014_init,level0014_check,"Find a point P on the\nline AB such that\nCP + DP = MN.");
